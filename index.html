@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Hari Kumar Derangula — Software Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  /* ─── CSS VARIABLES ─────────────────────────────────────────── */
+  :root {
+    --accent-1: #00d4a1;
+    --accent-2: #0099ff;
+    --accent-grad: linear-gradient(135deg, #00d4a1 0%, #0099ff 100%);
+    --accent-grad-soft: linear-gradient(135deg, rgba(0,212,161,0.15) 0%, rgba(0,153,255,0.15) 100%);
+
+    /* dark defaults */
+    --bg:       #080c10;
+    --bg-2:     #0d1117;
+    --bg-card:  #111820;
+    --bg-glass: rgba(13,17,23,0.7);
+    --border:   rgba(255,255,255,0.06);
+    --border-hover: rgba(0,212,161,0.35);
+    --text-1:   #f0f4f8;
+    --text-2:   #8b9cb3;
+    --text-3:   #4a5c70;
+    --shadow:   0 24px 64px rgba(0,0,0,0.5);
+    --shadow-sm:0 4px 20px rgba(0,0,0,0.3);
+  }
+  [data-theme="light"] {
+    --bg:       #f4f7fb;
+    --bg-2:     #eef2f7;
+    --bg-card:  #ffffff;
+    --bg-glass: rgba(244,247,251,0.85);
+    --border:   rgba(0,0,0,0.07);
+    --border-hover: rgba(0,153,255,0.4);
+    --text-1:   #0d1117;
+    --text-2:   #4a5c70;
+    --text-3:   #8b9cb3;
+    --shadow:   0 24px 64px rgba(0,0,0,0.1);
+    --shadow-sm:0 4px 20px rgba(0,0,0,0.08);
+  }
+
+  /* ─── RESET ─────────────────────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; font-size: 16px; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text-1);
+    line-height: 1.6;
+    overflow-x: hidden;
+    transition: background 0.4s, color 0.4s;
+  }
+  a { color: inherit; text-decoration: none; }
+  ul { list-style: none; }
+  img { display: block; max-width: 100%; }
+  ::selection { background: rgba(0,212,161,0.3); }
+
+  /* ─── SCROLLBAR ──────────────────────────────────────────────── */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--accent-1); border-radius: 2px; }
+
+  /* ─── GRADIENT TEXT ──────────────────────────────────────────── */
+  .grad-text {
+    background: var(--accent-grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* ─── NOISE OVERLAY ──────────────────────────────────────────── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 0; opacity: 0.4;
+  }
+
+  /* ─── NAVBAR ─────────────────────────────────────────────────── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 999;
+    padding: 0 5%;
+    height: 68px;
+    display: flex; align-items: center; justify-content: space-between;
+    background: var(--bg-glass);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    transition: background 0.4s, border-color 0.4s;
+  }
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.1rem;
+    letter-spacing: -0.02em;
+    background: var(--accent-grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .nav-links {
+    display: flex; gap: 2rem; align-items: center;
+  }
+  .nav-links a {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-2);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+    position: relative;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute; left: 0; bottom: -4px;
+    width: 0; height: 1.5px;
+    background: var(--accent-grad);
+    transition: width 0.3s;
+    border-radius: 2px;
+  }
+  .nav-links a:hover { color: var(--text-1); }
+  .nav-links a:hover::after { width: 100%; }
+  .theme-btn {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 50px;
+    width: 42px; height: 24px;
+    cursor: pointer;
+    position: relative;
+    transition: border-color 0.3s;
+  }
+  .theme-btn:hover { border-color: var(--accent-1); }
+  .theme-btn::after {
+    content: '';
+    position: absolute;
+    top: 3px; left: 3px;
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    background: var(--accent-grad);
+    transition: transform 0.3s;
+  }
+  [data-theme="light"] .theme-btn::after { transform: translateX(18px); }
+
+  .burger {
+    display: none; flex-direction: column; gap: 5px;
+    cursor: pointer; padding: 4px;
+  }
+  .burger span {
+    display: block; width: 22px; height: 2px;
+    background: var(--text-1); border-radius: 2px;
+    transition: all 0.3s;
+  }
+
+  /* ─── SECTIONS ───────────────────────────────────────────────── */
+  section { padding: 120px 5%; position: relative; }
+  section:first-of-type { padding-top: 180px; }
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--accent-1);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    opacity: 0.85;
+  }
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    color: var(--text-1);
+  }
+
+  /* ─── HERO ───────────────────────────────────────────────────── */
+  #hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding-top: 68px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    pointer-events: none;
+  }
+  .orb-1 {
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(0,212,161,0.12) 0%, transparent 70%);
+    top: -100px; right: -100px;
+  }
+  .orb-2 {
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(0,153,255,0.1) 0%, transparent 70%);
+    bottom: -100px; left: -50px;
+  }
+  .hero-inner {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 4rem;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative; z-index: 1;
+  }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--accent-grad-soft);
+    border: 1px solid rgba(0,212,161,0.2);
+    border-radius: 100px;
+    padding: 6px 14px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--accent-1);
+    letter-spacing: 0.08em;
+    margin-bottom: 1.5rem;
+    width: fit-content;
+  }
+  .hero-tag::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent-1);
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+  .hero-name {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2.8rem, 7vw, 6rem);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 0.95;
+    margin-bottom: 1.2rem;
+  }
+  .hero-title {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    color: var(--text-2);
+    font-weight: 300;
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.01em;
+  }
+  .hero-about {
+    font-size: 1rem;
+    color: var(--text-2);
+    max-width: 560px;
+    line-height: 1.75;
+    margin-bottom: 2.5rem;
+  }
+  .hero-location {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 0.82rem;
+    color: var(--text-3);
+    font-family: 'JetBrains Mono', monospace;
+    margin-bottom: 2.5rem;
+  }
+  .hero-location svg { color: var(--accent-1); }
+  .hero-btns {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+    margin-bottom: 3rem;
+  }
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--accent-grad);
+    color: #fff;
+    padding: 13px 28px;
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 0.9rem;
+    letter-spacing: 0.02em;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 0 0 rgba(0,212,161,0);
+  }
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0,212,161,0.35);
+  }
+  .btn-outline {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: transparent;
+    color: var(--text-1);
+    padding: 12px 28px;
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 0.9rem;
+    border: 1px solid var(--border);
+    transition: border-color 0.2s, transform 0.2s, background 0.2s;
+  }
+  .btn-outline:hover {
+    border-color: var(--accent-1);
+    background: rgba(0,212,161,0.05);
+    transform: translateY(-2px);
+  }
+  .hero-socials {
+    display: flex; gap: 1rem;
+  }
+  .social-link {
+    display: flex; align-items: center; justify-content: center;
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    color: var(--text-2);
+    transition: all 0.2s;
+  }
+  .social-link:hover {
+    border-color: var(--accent-1);
+    color: var(--accent-1);
+    background: rgba(0,212,161,0.08);
+    transform: translateY(-2px);
+  }
+  .hero-photo-wrap {
+    position: relative;
+    width: 320px; flex-shrink: 0;
+  }
+  .hero-photo-glow {
+    position: absolute;
+    inset: -20px;
+    background: var(--accent-grad);
+    border-radius: 50%;
+    filter: blur(40px);
+    opacity: 0.2;
+    animation: glow-pulse 4s ease-in-out infinite;
+  }
+  @keyframes glow-pulse {
+    0%, 100% { opacity: 0.15; transform: scale(1); }
+    50% { opacity: 0.28; transform: scale(1.05); }
+  }
+  .hero-photo {
+    position: relative; z-index: 1;
+    width: 280px; height: 280px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid transparent;
+    background: var(--accent-grad) border-box;
+    box-shadow: var(--shadow);
+    margin: 0 auto;
+  }
+  .hero-photo-ring {
+    position: absolute; z-index: 0;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    border: 1px solid rgba(0,212,161,0.2);
+    top: -10px; left: 50%; transform: translateX(-50%);
+    animation: ring-spin 20s linear infinite;
+  }
+  @keyframes ring-spin {
+    from { transform: translateX(-50%) rotate(0deg); }
+    to   { transform: translateX(-50%) rotate(360deg); }
+  }
+
+  /* ─── SKILLS ─────────────────────────────────────────────────── */
+  #skills { background: var(--bg-2); }
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+    max-width: 1100px; margin: 0 auto;
+  }
+  .skill-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.75rem;
+    transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+  }
+  .skill-card:hover {
+    border-color: var(--border-hover);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-sm);
+  }
+  .skill-card-icon {
+    font-size: 1.6rem; margin-bottom: 1rem;
+  }
+  .skill-card-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+    color: var(--text-1);
+  }
+  .skill-tags {
+    display: flex; flex-wrap: wrap; gap: 0.5rem;
+  }
+  .skill-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    padding: 4px 10px;
+    border-radius: 6px;
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    color: var(--text-2);
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .skill-tag:hover { border-color: var(--accent-1); color: var(--accent-1); }
+
+  /* ─── EXPERIENCE ─────────────────────────────────────────────── */
+  #experience { background: var(--bg); }
+  .exp-timeline {
+    position: relative;
+    max-width: 900px; margin: 0 auto;
+    padding-left: 2rem;
+  }
+  .exp-timeline::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 8px; bottom: 8px;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--accent-1), var(--accent-2), transparent);
+    opacity: 0.3;
+  }
+  .exp-item {
+    position: relative;
+    margin-bottom: 4rem;
+    padding-left: 2rem;
+  }
+  .exp-item::before {
+    content: '';
+    position: absolute;
+    left: -2rem;
+    top: 6px;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--accent-grad);
+    box-shadow: 0 0 0 3px var(--bg), 0 0 0 4px rgba(0,212,161,0.3);
+  }
+  .exp-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--accent-1);
+    letter-spacing: 0.08em;
+    margin-bottom: 0.5rem;
+  }
+  .exp-role {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.25rem;
+    color: var(--text-1);
+  }
+  .exp-company {
+    font-size: 0.95rem;
+    color: var(--text-2);
+    margin-bottom: 1.25rem;
+  }
+  .exp-project {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1rem;
+    transition: border-color 0.3s;
+  }
+  .exp-project:hover { border-color: var(--border-hover); }
+  .exp-project-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--accent-1);
+    margin-bottom: 0.75rem;
+  }
+  .exp-achievements {
+    padding-left: 1rem;
+  }
+  .exp-achievements li {
+    font-size: 0.88rem;
+    color: var(--text-2);
+    line-height: 1.7;
+    margin-bottom: 0.4rem;
+    position: relative;
+  }
+  .exp-achievements li::before {
+    content: '▸';
+    position: absolute;
+    left: -1rem;
+    color: var(--accent-1);
+    font-size: 0.7rem;
+    top: 3px;
+  }
+
+  /* ─── PROJECTS ───────────────────────────────────────────────── */
+  #projects { background: var(--bg-2); }
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+    max-width: 1100px; margin: 0 auto;
+  }
+  .project-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.75rem;
+    display: flex; flex-direction: column;
+    transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--accent-grad);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s;
+  }
+  .project-card:hover {
+    border-color: var(--border-hover);
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-sm);
+  }
+  .project-card:hover::before { transform: scaleX(1); }
+  .project-header {
+    display: flex; justify-content: space-between;
+    align-items: flex-start; margin-bottom: 1rem;
+  }
+  .project-icon {
+    font-size: 1.8rem;
+  }
+  .project-links { display: flex; gap: 0.5rem; }
+  .project-link {
+    display: flex; align-items: center; justify-content: center;
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    color: var(--text-2);
+    font-size: 0.75rem;
+    transition: all 0.2s;
+  }
+  .project-link:hover {
+    border-color: var(--accent-1);
+    color: var(--accent-1);
+    background: rgba(0,212,161,0.08);
+  }
+  .project-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 0.6rem;
+    color: var(--text-1);
+  }
+  .project-desc {
+    font-size: 0.875rem;
+    color: var(--text-2);
+    line-height: 1.7;
+    flex: 1;
+    margin-bottom: 1.25rem;
+  }
+  .project-stack {
+    display: flex; flex-wrap: wrap; gap: 0.4rem;
+    margin-top: auto;
+  }
+  .stack-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    padding: 3px 8px;
+    border-radius: 4px;
+    background: var(--accent-grad-soft);
+    color: var(--accent-1);
+    border: 1px solid rgba(0,212,161,0.15);
+  }
+
+  /* ─── EDUCATION ──────────────────────────────────────────────── */
+  #education { background: var(--bg); }
+  .edu-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 2.5rem;
+    max-width: 700px;
+    display: flex; gap: 2rem; align-items: flex-start;
+    transition: border-color 0.3s;
+    position: relative; overflow: hidden;
+  }
+  .edu-card::after {
+    content: '';
+    position: absolute;
+    right: -60px; bottom: -60px;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: var(--accent-grad-soft);
+    filter: blur(30px);
+    pointer-events: none;
+  }
+  .edu-card:hover { border-color: var(--border-hover); }
+  .edu-badge {
+    width: 56px; height: 56px; flex-shrink: 0;
+    border-radius: 14px;
+    background: var(--accent-grad-soft);
+    border: 1px solid rgba(0,212,161,0.2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem;
+  }
+  .edu-degree {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.25rem;
+    color: var(--text-1);
+  }
+  .edu-college {
+    font-size: 0.9rem;
+    color: var(--text-2);
+    margin-bottom: 0.75rem;
+  }
+  .edu-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+  .edu-meta-item {
+    display: flex; align-items: center; gap: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--text-3);
+  }
+  .edu-meta-item span { color: var(--accent-1); }
+  .edu-highlights {
+    margin-top: 1rem;
+    padding-left: 1rem;
+  }
+  .edu-highlights li {
+    font-size: 0.85rem;
+    color: var(--text-2);
+    line-height: 1.7;
+    margin-bottom: 0.3rem;
+    position: relative;
+  }
+  .edu-highlights li::before {
+    content: '▸';
+    position: absolute; left: -1rem;
+    color: var(--accent-1); font-size: 0.7rem; top: 3px;
+  }
+
+  /* ─── CONTACT ────────────────────────────────────────────────── */
+  #contact {
+    background: var(--bg-2);
+    text-align: center;
+  }
+  .contact-inner { max-width: 600px; margin: 0 auto; }
+  .contact-desc {
+    color: var(--text-2);
+    font-size: 1rem;
+    line-height: 1.75;
+    margin-bottom: 2.5rem;
+  }
+  .contact-email {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.95rem;
+    color: var(--text-1);
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 14px 24px;
+    border-radius: 10px;
+    margin-bottom: 2.5rem;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .contact-email:hover {
+    border-color: var(--accent-1);
+    transform: translateY(-2px);
+  }
+  .contact-socials {
+    display: flex; justify-content: center; gap: 1rem;
+  }
+  .contact-social {
+    display: flex; align-items: center; gap: 8px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    color: var(--text-2);
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: all 0.2s;
+  }
+  .contact-social:hover {
+    border-color: var(--accent-1);
+    color: var(--accent-1);
+    background: rgba(0,212,161,0.06);
+    transform: translateY(-2px);
+  }
+
+  /* ─── FOOTER ─────────────────────────────────────────────────── */
+  footer {
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+    padding: 2rem 5%;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 1rem;
+  }
+  .footer-copy {
+    font-size: 0.8rem;
+    color: var(--text-3);
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .footer-copy span { color: var(--accent-1); }
+  .footer-back {
+    font-size: 0.8rem;
+    color: var(--text-3);
+    cursor: pointer;
+    transition: color 0.2s;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .footer-back:hover { color: var(--accent-1); }
+
+  /* ─── SCROLL ANIMATION ───────────────────────────────────────── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+
+  /* ─── MOBILE MENU ────────────────────────────────────────────── */
+  @media (max-width: 768px) {
+    .nav-links.desktop { display: none; }
+    .burger { display: flex; }
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 68px; left: 0; right: 0;
+      background: var(--bg-2);
+      border-bottom: 1px solid var(--border);
+      padding: 1.5rem 5%;
+      z-index: 998;
+      flex-direction: column; gap: 1.25rem;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--text-2);
+      padding: 0.5rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .hero-inner { grid-template-columns: 1fr; }
+    .hero-photo-wrap { display: none; }
+    .projects-grid, .skills-grid { grid-template-columns: 1fr; }
+    .edu-card { flex-direction: column; }
+    footer { justify-content: center; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">HK.</a>
+  <ul class="nav-links desktop">
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:1rem;">
+    <button class="theme-btn" id="themeToggle" aria-label="Toggle theme"></button>
+    <div class="burger" id="burger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#skills">Skills</a>
+  <a href="#experience">Experience</a>
+  <a href="#projects">Projects</a>
+  <a href="#education">Education</a>
+  <a href="#contact">Contact</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-orb orb-1"></div>
+  <div class="hero-bg-orb orb-2"></div>
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-tag">Available for opportunities</div>
+      <h1 class="hero-name">
+        Hari Kumar<br>
+        <span class="grad-text">Derangula</span>
+      </h1>
+      <p class="hero-title">Software Engineer · Backend Systems · Java & Python</p>
+      <p class="hero-about">
+        Results-driven Software Engineer with 2+ years building scalable APIs, real-time processing engines, and hardware-integrated systems. Passionate about high-performance backend architecture and solving complex problems with elegant solutions.
+      </p>
+      <div class="hero-location">
+        <svg width="12" height="14" viewBox="0 0 12 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6 0C3.79 0 2 1.79 2 4C2 7 6 12 6 12C6 12 10 7 10 4C10 1.79 8.21 0 6 0ZM6 5.5C5.17 5.5 4.5 4.83 4.5 4C4.5 3.17 5.17 2.5 6 2.5C6.83 2.5 7.5 3.17 7.5 4C7.5 4.83 6.83 5.5 6 5.5Z" fill="currentColor"/>
+        </svg>
+        Bangalore, India
+      </div>
+      <div class="hero-btns">
+        <a href="#contact" class="btn-primary">
+          <svg width="14" height="14" viewBox="0 0 20 20" fill="none"><path d="M2 4a2 2 0 012-2h12a2 2 0 012 2v12a2 2 0 01-2 2H4a2 2 0 01-2-2V4z" stroke="white" stroke-width="1.5"/><path d="M2 7l8 5 8-5" stroke="white" stroke-width="1.5"/></svg>
+          Get in Touch
+        </a>
+        <a href="#projects" class="btn-outline">
+          <svg width="14" height="14" viewBox="0 0 20 20" fill="none"><rect x="3" y="3" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.5"/><rect x="11" y="3" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.5"/><rect x="3" y="11" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.5"/><rect x="11" y="11" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.5"/></svg>
+          View Projects
+        </a>
+      </div>
+      <div class="hero-socials">
+        <a href="mailto:harikumarderangula504@gmail.com" class="social-link" title="Email">
+          <svg width="16" height="16" viewBox="0 0 20 20" fill="none"><path d="M3 5a1 1 0 011-1h12a1 1 0 011 1v10a1 1 0 01-1 1H4a1 1 0 01-1-1V5z" stroke="currentColor" stroke-width="1.5"/><path d="M3 6l7 5 7-5" stroke="currentColor" stroke-width="1.5"/></svg>
+        </a>
+        <a href="https://www.linkedin.com/in/derangula-harikumar/" target="_blank" class="social-link" title="LinkedIn">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </a>
+        <a href="https://github.com/HarikumarD" target="_blank" class="social-link" title="GitHub">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="hero-photo-wrap">
+      <div class="hero-photo-glow"></div>
+      <div class="hero-photo-ring"></div>
+      <img
+        src="https://media.licdn.com/dms/image/v2/D5603AQEnS1ncdmUe4Q/profile-displayphoto-crop_800_800/B56ZzrZpL1HoAI-/0/1773475895553?e=1777507200&v=beta&t=I0ncB2Z5hSycUphqBmTMq6f6JCti9NFd73ipmkMY2p8"
+        alt="Hari Kumar Derangula"
+        class="hero-photo"
+        onerror="this.style.display='none'"
+      />
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div style="max-width:1100px;margin:0 auto;">
+    <p class="section-label reveal">Expertise</p>
+    <h2 class="section-title reveal">Technical Skills</h2>
+    <p class="reveal" style="color:var(--text-2);max-width:600px;margin-bottom:3rem;font-size:0.95rem;">Auto-extracted from professional experience and project work.</p>
+    <div class="skills-grid">
+      <div class="skill-card reveal reveal-delay-1">
+        <div class="skill-card-icon">⚙️</div>
+        <div class="skill-card-title">Backend Development</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Java</span>
+          <span class="skill-tag">Spring Boot</span>
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">REST APIs</span>
+          <span class="skill-tag">Microservices</span>
+        </div>
+      </div>
+      <div class="skill-card reveal reveal-delay-2">
+        <div class="skill-card-icon">🔄</div>
+        <div class="skill-card-title">Real-Time & Concurrency</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Multi-threading</span>
+          <span class="skill-tag">Socket IPC</span>
+          <span class="skill-tag">Concurrent Processing</span>
+          <span class="skill-tag">Event-Driven</span>
+        </div>
+      </div>
+      <div class="skill-card reveal reveal-delay-3">
+        <div class="skill-card-icon">🖥️</div>
+        <div class="skill-card-title">Desktop & GUI</div>
+        <div class="skill-tags">
+          <span class="skill-tag">PyQt6</span>
+          <span class="skill-tag">Windows Services</span>
+          <span class="skill-tag">Serial Communication</span>
+          <span class="skill-tag">USB Integration</span>
+        </div>
+      </div>
+      <div class="skill-card reveal reveal-delay-1">
+        <div class="skill-card-icon">🗄️</div>
+        <div class="skill-card-title">Data & Persistence</div>
+        <div class="skill-tags">
+          <span class="skill-tag">RBAC</span>
+          <span class="skill-tag">OTP Auth</span>
+          <span class="skill-tag">Data Sync</span>
+          <span class="skill-tag">SQL</span>
+          <span class="skill-tag">DBMS</span>
+        </div>
+      </div>
+      <div class="skill-card reveal reveal-delay-2">
+        <div class="skill-card-icon">🏗️</div>
+        <div class="skill-card-title">Architecture & Patterns</div>
+        <div class="skill-tags">
+          <span class="skill-tag">RFID Systems</span>
+          <span class="skill-tag">Modular Design</span>
+          <span class="skill-tag">Fault Tolerance</span>
+          <span class="skill-tag">Error Recovery</span>
+        </div>
+      </div>
+      <div class="skill-card reveal reveal-delay-3">
+        <div class="skill-card-icon">🛠️</div>
+        <div class="skill-card-title">CS Fundamentals</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Data Structures</span>
+          <span class="skill-tag">Algorithms</span>
+          <span class="skill-tag">Operating Systems</span>
+          <span class="skill-tag">Git</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div style="max-width:1100px;margin:0 auto;">
+    <p class="section-label reveal">Career</p>
+    <h2 class="section-title reveal">Work Experience</h2>
+    <div class="exp-timeline">
+      <div class="exp-item reveal">
+        <div class="exp-meta">Feb 2024 – Present · Bangalore, India</div>
+        <div class="exp-role">Software Engineer</div>
+        <div class="exp-company">Orno Technologies Pvt. Ltd.</div>
+
+        <div class="exp-project">
+          <div class="exp-project-title">🔹 RFID Asset Tracking System (PIKT Asset)</div>
+          <ul class="exp-achievements">
+            <li>Architected a high-performance RFID processing engine in Java (Spring Boot) capable of handling thousands of tag reads per batch with sub-second response time.</li>
+            <li>Implemented multi-antenna logic and intelligent duplicate filtering, improving location accuracy and eliminating redundant data noise.</li>
+            <li>Designed scalable REST APIs for real-time asset tracking with instant IN/OUT status detection across multiple zones.</li>
+            <li>Built a secure RBAC system with OTP-based authentication and a centralized data synchronization layer for distributed services.</li>
+          </ul>
+        </div>
+
+        <div class="exp-project">
+          <div class="exp-project-title">🔹 SDI ↔ Fiber Bidirectional Converter System</div>
+          <ul class="exp-achievements">
+            <li>Engineered a robust Windows service in Python for USB/serial communication with automatic device detection and zero-downtime reconnection.</li>
+            <li>Developed a PyQt6 desktop GUI for real-time hardware monitoring displaying live firmware status, device model, and serial data.</li>
+            <li>Designed socket-based IPC between GUI and backend service, achieving a decoupled, highly responsive architecture.</li>
+          </ul>
+        </div>
+
+        <div class="exp-project">
+          <div class="exp-project-title">🔹 System Design & Engineering Excellence</div>
+          <ul class="exp-achievements">
+            <li>Applied multi-threading and concurrent processing to optimize real-time system performance.</li>
+            <li>Ensured high availability through efficient error handling, reconnection strategies, and modular architecture patterns.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div style="max-width:1100px;margin:0 auto;">
+    <p class="section-label reveal">Work</p>
+    <h2 class="section-title reveal">Featured Projects</h2>
+    <p class="reveal" style="color:var(--text-2);max-width:600px;margin-bottom:3rem;font-size:0.95rem;">Key engineering projects spanning enterprise backend systems and hardware integration.</p>
+    <div class="projects-grid">
+
+      <div class="project-card reveal reveal-delay-1">
+        <div class="project-header">
+          <div class="project-icon">📡</div>
+          <div class="project-links">
+            <a href="https://github.com/HarikumarD" target="_blank" class="project-link" title="GitHub">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="project-title">PIKT Asset — RFID Tracking System</div>
+        <div class="project-desc">Enterprise-grade real-time RFID asset tracking engine with multi-antenna support, sub-second batch processing, zone-based IN/OUT detection, and role-based access control. Deployed in production environments.</div>
+        <div class="project-stack">
+          <span class="stack-tag">Java</span>
+          <span class="stack-tag">Spring Boot</span>
+          <span class="stack-tag">REST API</span>
+          <span class="stack-tag">RBAC</span>
+          <span class="stack-tag">RFID</span>
+          <span class="stack-tag">Real-Time</span>
+        </div>
+      </div>
+
+      <div class="project-card reveal reveal-delay-2">
+        <div class="project-header">
+          <div class="project-icon">🔌</div>
+          <div class="project-links">
+            <a href="https://github.com/HarikumarD" target="_blank" class="project-link" title="GitHub">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="project-title">SDI ↔ Fiber Converter System</div>
+        <div class="project-desc">Hardware integration platform featuring a Python Windows service for zero-downtime USB/serial communication, a PyQt6 GUI for live device monitoring, and socket-based IPC for decoupled service-GUI communication.</div>
+        <div class="project-stack">
+          <span class="stack-tag">Python</span>
+          <span class="stack-tag">PyQt6</span>
+          <span class="stack-tag">IPC Sockets</span>
+          <span class="stack-tag">Windows Service</span>
+          <span class="stack-tag">Serial Comm</span>
+        </div>
+      </div>
+
+      <div class="project-card reveal reveal-delay-3">
+        <div class="project-header">
+          <div class="project-icon">🛡️</div>
+          <div class="project-links">
+            <a href="https://github.com/HarikumarD" target="_blank" class="project-link" title="GitHub">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="project-title">RBAC Auth Engine</div>
+        <div class="project-desc">Secure Role-Based Access Control system with OTP-based two-factor authentication, centralized data synchronization across distributed services, and robust session management for enterprise applications.</div>
+        <div class="project-stack">
+          <span class="stack-tag">Java</span>
+          <span class="stack-tag">Spring Security</span>
+          <span class="stack-tag">OTP Auth</span>
+          <span class="stack-tag">Distributed Systems</span>
+        </div>
+      </div>
+
+      <div class="project-card reveal reveal-delay-1">
+        <div class="project-header">
+          <div class="project-icon">⚡</div>
+          <div class="project-links">
+            <a href="https://github.com/HarikumarD" target="_blank" class="project-link" title="GitHub">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="project-title">High-Availability Service Architecture</div>
+        <div class="project-desc">Multi-threaded concurrent processing framework with intelligent fault tolerance, automatic reconnection strategies, and modular architecture ensuring zero-downtime operations across hardware-integrated systems.</div>
+        <div class="project-stack">
+          <span class="stack-tag">Multi-threading</span>
+          <span class="stack-tag">Concurrent Systems</span>
+          <span class="stack-tag">Fault Tolerance</span>
+          <span class="stack-tag">Python</span>
+        </div>
+      </div>
+
+    </div>
+    <div style="text-align:center;margin-top:2.5rem;">
+      <a href="https://github.com/HarikumarD" target="_blank" class="btn-outline reveal">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+        View All on GitHub
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div style="max-width:1100px;margin:0 auto;">
+    <p class="section-label reveal">Academic</p>
+    <h2 class="section-title reveal">Education</h2>
+    <div class="edu-card reveal">
+      <div class="edu-badge">🎓</div>
+      <div>
+        <div class="edu-degree">B.Tech in Computer Science & Engineering</div>
+        <div class="edu-college">Siddartha Institute of Science and Technology</div>
+        <div class="edu-meta">
+          <div class="edu-meta-item">📅 <span>2020 – 2024</span></div>
+          <div class="edu-meta-item">⭐ CGPA: <span>8.56 / 10.0</span></div>
+        </div>
+        <ul class="edu-highlights">
+          <li>Graduated with a strong academic record of 8.56 CGPA</li>
+          <li>Built a solid foundation in data structures, algorithms, operating systems, and DBMS</li>
+          <li>Worked on real-time projects involving backend development, hardware integration, and system design</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner">
+    <p class="section-label reveal">Let's connect</p>
+    <h2 class="section-title reveal">Get In Touch</h2>
+    <p class="contact-desc reveal">
+      I'm always open to discussing backend engineering challenges, new opportunities, or interesting projects. Feel free to reach out — I'd love to connect.
+    </p>
+    <a href="mailto:harikumarderangula504@gmail.com" class="contact-email reveal">
+      <svg width="14" height="14" viewBox="0 0 20 20" fill="none"><path d="M3 5a1 1 0 011-1h12a1 1 0 011 1v10a1 1 0 01-1 1H4a1 1 0 01-1-1V5z" stroke="currentColor" stroke-width="1.5"/><path d="M3 6l7 5 7-5" stroke="currentColor" stroke-width="1.5"/></svg>
+      harikumarderangula504@gmail.com
+    </a>
+    <div class="contact-socials reveal">
+      <a href="https://www.linkedin.com/in/derangula-harikumar/" target="_blank" class="contact-social">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        LinkedIn
+      </a>
+      <a href="https://github.com/HarikumarD" target="_blank" class="contact-social">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+        GitHub
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-copy">
+    © 2025 <span>Hari Kumar Derangula</span> · Built with precision
+  </div>
+  <div class="footer-back" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+    <svg width="12" height="12" viewBox="0 0 20 20" fill="none"><path d="M10 15V5M5 10l5-5 5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    Back to top
+  </div>
+</footer>
+
+<script>
+  // ─── THEME TOGGLE ──────────────────────────────────────────────
+  const themeBtn = document.getElementById('themeToggle');
+  const html = document.documentElement;
+  const saved = localStorage.getItem('theme') || 'dark';
+  html.setAttribute('data-theme', saved);
+  themeBtn.addEventListener('click', () => {
+    const current = html.getAttribute('data-theme');
+    const next = current === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+
+  // ─── BURGER MENU ──────────────────────────────────────────────
+  const burger = document.getElementById('burger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  burger.addEventListener('click', () => {
+    mobileMenu.classList.toggle('open');
+  });
+  mobileMenu.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => mobileMenu.classList.remove('open'));
+  });
+
+  // ─── SCROLL REVEAL ────────────────────────────────────────────
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => observer.observe(el));
+
+  // ─── ACTIVE NAV HIGHLIGHT ─────────────────────────────────────
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(sec => {
+      const top = sec.getBoundingClientRect().top;
+      if (top < 120) current = sec.getAttribute('id');
+    });
+    navLinks.forEach(link => {
+      link.style.color = link.getAttribute('href') === `#${current}`
+        ? 'var(--accent-1)' : '';
+    });
+  });
+</script>
+</body>
+</html>
